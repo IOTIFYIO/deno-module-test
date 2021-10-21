@@ -1,6 +1,5 @@
-// Copyright 2018-2021 the Deno authors. All rights reserved. MIT license.
-//!  This example shows you how to define ops in Rust and then call them from
-//!  JavaScript.
+//!  This example shows you how to load a side module and execute a script which dynamically
+//!  loads the side module.
 
 use deno_core::JsRuntime;
 use deno_core::FsModuleLoader;
