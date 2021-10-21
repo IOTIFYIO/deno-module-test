@@ -15,7 +15,6 @@ use std::process;
 // load a side module
 fn load_side_module(rt: &Runtime, runtime: &mut JsRuntime, module_filename: String) {
 
-  //let module_url = Url::parse("file:///home/ubuntu/deno/runtime_test/target/debug/double.mjs").unwrap();
   let module_filename_as_url = "file://".to_string() + &module_filename;
   let module_url = Url::parse(&module_filename_as_url).unwrap();
   let mut module_id = 0;
@@ -26,7 +25,6 @@ fn load_side_module(rt: &Runtime, runtime: &mut JsRuntime, module_filename: Stri
   };
   rt.block_on(async_block);
 
-  //let mut module_evaluation = runtime.mod_evaluate(module_id) ;
 
   let mut receiver = runtime.mod_evaluate(module_id);
 
@@ -44,18 +42,12 @@ fn load_side_module(rt: &Runtime, runtime: &mut JsRuntime, module_filename: Stri
     }
   };
 
-  //rt.block_on(mod_eval_async);
 
   let mod_eval_result = rt.block_on(mod_eval_async);
   match mod_eval_result {
       Ok(result) => println!("Module evaluated successfully..."),
       Err(error) => println!("Error evaluating module {}", error),
   }
-
-  //if let Ok(mod_eval_result) = rt.block_on(mod_eval_async) {
-  //} else {
-  //    println!("Error evaluating module {}", mod_eval_result);
-  //}
 }
 
 fn parse_args(args: &[String]) -> Result<(&str, &str), &str> {
@@ -92,9 +84,6 @@ fn main() {
   let script_file = fs::read_to_string(filename)
         .expect("Unable to read script file");
 
-  // Now we see how to invoke the op we just defined. The runtime automatically
-  // contains a Deno.core object with several functions for interacting with it.
-  // You can find its definition in core.js.
   if let Ok(_execute_result) = runtime.execute_script(
       "test-script",
       &script_file,
@@ -106,7 +95,6 @@ fn main() {
 
   println!("Passing control to deno runtime via event_loop...");
   let event_loop_async  = async {
-    //let resull = runtime.run_event_loop(false).await ;
     if let Ok(_event_loop_result) = runtime.run_event_loop(false).await {
       println!("Event loop terminated successfully...");
     } else {
@@ -114,6 +102,5 @@ fn main() {
     }
   };
   rt.block_on(event_loop_async);
-
 }
 
